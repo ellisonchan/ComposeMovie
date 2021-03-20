@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: io.coil-kt:coil-base:1.1.1@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0369853d2c373a9e78f0519bbaead02e/transformed/jetified-coil-base-1.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0369853d2c373a9e78f0519bbaead02e/transformed/jetified-coil-base-1.1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0369853d2c373a9e78f0519bbaead02e/transformed/jetified-coil-base-1.1.1/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.coil-kt/coil-base/1.1.1/cfa9ed109bea1da11a9184e898683bc094733d99/coil-base-1.1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.coil-kt/coil-base/1.1.1/f2ff79b032b2a8d04c24afe1b4295406b47a2451/coil-base-1.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

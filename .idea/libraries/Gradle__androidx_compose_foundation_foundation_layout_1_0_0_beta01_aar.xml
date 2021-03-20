@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.compose.foundation:foundation-layout:1.0.0-beta01@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fcc9599ed8c7714d0b39c20d19ce6511/transformed/jetified-foundation-layout-1.0.0-beta01/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fcc9599ed8c7714d0b39c20d19ce6511/transformed/jetified-foundation-layout-1.0.0-beta01/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/fcc9599ed8c7714d0b39c20d19ce6511/transformed/jetified-foundation-layout-1.0.0-beta01/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.compose.foundation/foundation-layout/1.0.0-beta01/a3a86c270bd11aa791120152cd90855ade7d164b/foundation-layout-1.0.0-beta01-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

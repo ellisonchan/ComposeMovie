@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">ComposeMovie</string>
+
+    <string name="screen_find">Search movie</string>
+    <string name="screen_store">Movie store</string>
+    <string name="screen_favourite">Favourite movies</string>
+    <string name="screen_profile">My Profile</string>
+
+    <string name="search_dialog_ok">OK</string>
+    <string name="search_dialog_tip">Warning</string>
+    <string name="search_none">Got no movie or too large result.</string>
+    <string name="search_failure">Check network please.</string>
+
+    <string name="activity_list_name">Movie list</string>
+
+    <string name="input_label_search">Keyword</string>
+    <string name="movie_search_hint">Input something</string>
+    <string name="input_search_warning">Input keyword please</string>
+
+    <string name="movie_info_buy">Buy</string>
+    <string name="movie_info_rent">Rent</string>
+
+    <string name="movie_test_name">King of comedy</string>
+    <string name="movie_test_actors">Stephen Chow, Ng Man Tat</string>
+    <string name="movie_test_post">https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2579932167.webp</string>
+    <string name="movie_test_year">1999</string>
+
+    <string name="movie_test_name_2">Kung fu</string>
+    <string name="movie_test_actors_2">Stephen Chow, Danny Chan</string>
+    <string name="movie_test_post_2">https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2219011938.webp</string>
+    <string name="movie_test_year_2">2004</string>
+
+    <string name="full_name">Tech Merger</string>
+    <string name="about_content">Stay hungry, stay foolish.</string>
+    <string name="nick_name">TM</string>
+    <string name="status_mine">Online</string>
+    <string name="sns_mine">"https://blog.csdn.net/allisonchen"</string>
+
+    <string name="display_name">Nick name</string>
+    <string name="status">Status</string>
+    <string name="sns">SNS</string>
+    <string name="btn_edit">Edit</string>
+
+    <string name="tab_find">Find</string>
+    <string name="tab_store">Store</string>
+    <string name="tab_store_recommend">Recommend movies</string>
+    <string name="tab_favourite">Favourite</string>
+    <string name="tab_profile">Profile</string>
+</resources>
