@@ -28,18 +28,17 @@ import androidx.compose.ui.unit.sp
 import com.ellison.composemovie.bean.Movie
 import com.ellison.composemovie.R
 import com.ellison.composemovie.bean.testMovies
-import com.ellison.composemovie.model.MovieModel
+import com.ellison.composemovie.viewmodel.MovieViewModel
 import com.ellison.composemovie.ui.theme.editShapes
 import com.ellison.composemovie.ui.theme.itemCardColor
 import com.ellison.composemovie.ui.theme.nameColor
-import com.ellison.composemovie.ui.theme.darkBlue
 import com.ellison.composemovie.ui.theme.pink900
 import com.ellison.composemovie.ui.theme.shapes
 import com.ellison.composemovie.util.Utils
 
 @ExperimentalFoundationApi
 @Composable
-fun Find(movieModel: MovieModel, onClick: (Movie) -> Unit) {
+fun Find(movieViewModel: MovieViewModel, onClick: (Movie) -> Unit) {
     val context = LocalContext.current.applicationContext
     val warningTip = stringResource(id = R.string.input_search_warning)
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
@@ -113,10 +112,10 @@ fun Find(movieModel: MovieModel, onClick: (Movie) -> Unit) {
         LaunchedEffect(searchQuery) {
             Utils.logDebug(Utils.TAG_SEARCH, "searchQuery updated:$searchQuery")
             if (searchQuery.length > 0) {
-                movieModel.searchMoviesComposeCoroutines(searchQuery)
+                movieViewModel.searchMoviesComposeCoroutines(searchQuery)
             }
         }
-        val moviesData: State<List<Movie>> = movieModel.movies.observeAsState(emptyList())
+        val moviesData: State<List<Movie>> = movieViewModel.movies.observeAsState(emptyList())
         val movies = moviesData.value
         val scrollState = rememberLazyListState()
 

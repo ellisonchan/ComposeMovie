@@ -22,14 +22,14 @@ import com.ellison.composemovie.bean.favouriteMovies
 import com.ellison.composemovie.bean.MoviePro
 import com.ellison.composemovie.bean.myAccount
 import com.ellison.composemovie.constant.Constants
-import com.ellison.composemovie.model.MovieModel
+import com.ellison.composemovie.viewmodel.MovieViewModel
 import com.ellison.composemovie.util.Utils
 
 @ExperimentalFoundationApi
 @Preview
 @Composable
 fun Navigation() {
-    val movieModel: MovieModel = viewModel()
+    val movieViewModel: MovieViewModel = viewModel()
 
     val baseTitle = stringResource(id = R.string.app_name)
     val (title, setTitle) = remember { mutableStateOf(baseTitle) }
@@ -122,7 +122,7 @@ fun Navigation() {
     ) {
         NavHost(navController, startDestination = Screen.Find.route) {
             composable(Screen.Find.route) {
-                FindScreen(navController, setTitle, movieModel)
+                FindScreen(navController, setTitle, movieViewModel)
                 isCurrentMovieDetail.value = false
             }
             composable(
@@ -134,7 +134,7 @@ fun Navigation() {
                 DetailScreen(
                     backStackEntry.arguments?.getString(Constants.ROUTE_DETAIL_KEY)!!,
                     setTitle,
-                    movieModel
+                    movieViewModel
                 )
                 Utils.logDebug(
                     Utils.TAG_LAUNCH,
@@ -163,11 +163,11 @@ fun Navigation() {
 fun FindScreen(
     navController: NavController,
     setTitle: (String) -> Unit,
-    movieModel: MovieModel
+    movieViewModel: MovieViewModel
 ) {
     setTitle(stringResource(id = R.string.screen_find))
     Find(
-        movieModel,
+        movieViewModel,
         onClick = { movie ->
             setTitle("")
             navController.navigate(Constants.ROUTE_DETAIL_PRE + movie.imdbID)
@@ -179,15 +179,15 @@ fun FindScreen(
 fun DetailScreen(
     movieId: String,
     setTitle: (String) -> Unit,
-    movieModel: MovieModel
+    movieViewModel: MovieViewModel
 ) {
-    val movies: State<List<Movie>> = movieModel.movies.observeAsState(emptyList())
+    val movies: State<List<Movie>> = movieViewModel.movies.observeAsState(emptyList())
     movies.value.firstOrNull { it.imdbID == movieId }?.let {
         setTitle(it.Title)
         LaunchedEffect(it.imdbID) {
-            movieModel.getMovieComposeCoroutines(it.imdbID)
+            movieViewModel.getMovieComposeCoroutines(it.imdbID)
         }
-        val moviePro: State<MoviePro> = movieModel.moviePro.observeAsState(MoviePro(it.Title))
+        val moviePro: State<MoviePro> = movieViewModel.moviePro.observeAsState(MoviePro(it.Title))
         Detail(moviePro.value)
     }
 }
