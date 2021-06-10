@@ -52,6 +52,18 @@ allprojects {
             // licenseHeaderFile rootProject.file('spotless/copyright.kt')
         }
     }
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8.toString()
+            freeCompilerArgs += ["-Xskip-prerelease-check", "-progressive" ]
+            freeCompilerArgs += "-Xopt-in=kotlin.Experimental"
+            freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+            freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
+            useIR = true
+            allWarningsAsErrors = false
+        }
+    }
 }
 
 //task clean(type: Delete) {
