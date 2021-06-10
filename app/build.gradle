@@ -2,8 +2,34 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 }
+def android_builder_version = "4.0.1"
+
+ext {
+    android_builder_main_version = Integer.parseInt(android_builder_version.split("\\.")[0])
+    android_builder_mid_version = Integer.parseInt(android_builder_version.split("\\.")[1])
+}
 
 android {
+    this.rootProject.buildscript.configurations.classpath
+            .resolvedConfiguration
+            .firstLevelModuleDependencies.
+            each {
+                def name = it.name
+                if (name.contains('com.android.tools.build:gradle')) {
+                    def moduleVersion = it.moduleVersion
+                    if (moduleVersion.contains("-")) {
+                        def alphaversionArray = moduleVersion.split("-")[0]
+                        def versionArray = alphaversionArray.toString().split("\\.")
+                        ext.android_builder_main_version = Integer.parseInt(versionArray[0])
+                        ext.android_builder_mid_version = Integer.parseInt(versionArray[1])
+                    } else {
+                        version = moduleVersion
+                        android_builder_version = moduleVersion
+                        ext.android_builder_main_version = Integer.parseInt(android_builder_version.split("\\.")[0])
+                        ext.android_builder_mid_version = Integer.parseInt(android_builder_version.split("\\.")[1])
+                    }
+                }
+            }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -31,16 +57,12 @@ android {
         jvmTarget = '1.8'
     }
 
-    viewBinding {
-        enabled = true
-    }
-
-    dataBinding {
-        enabled = true
-    }
     buildFeatures {
-        compose true
-
+        viewBinding true
+        dataBinding true
+        if (android_builder_main_version >= 7 || (android_builder_main_version > 4 && android_builder_mid_version > 1)) {
+            compose true
+        }
         // Disable unused AGP features
         buildConfig false
         aidl false
@@ -51,6 +73,7 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerVersion kotlin_version
     }
 
     packagingOptions {
@@ -64,7 +87,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.+'
@@ -84,17 +107,20 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
 
-    implementation("io.coil-kt:coil:1.1.1")
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.0"
+    //Compose
+    if (android_builder_main_version < 7) {
+        add("kotlinCompilerPluginClasspath", "androidx.compose.compiler:compiler:$compose_version")
+    }
 
+    implementation("io.coil-kt:coil:1.1.1")
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "androidx.activity:activity-compose:1.3.0-alpha03"
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
-
     implementation "androidx.navigation:navigation-compose:1.0.0-alpha08"
     implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-beta01'
-
+    implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.0"
 }
