@@ -1,5 +1,7 @@
 package com.ellison.composemovie.ui
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,10 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.ellison.composemovie.R
 import com.ellison.composemovie.ui.theme.compositedOnSurface
 import com.ellison.composemovie.util.Utils
-import dev.chrisbanes.accompanist.coil.CoilImage
-import dev.chrisbanes.accompanist.imageloading.ImageLoadState
+import com.google.accompanist.coil.rememberCoilPainter
+import com.google.accompanist.imageloading.ImageLoadState
 
 @Composable
 fun LoadImage(
@@ -21,37 +25,40 @@ fun LoadImage(
     contentScale: ContentScale = ContentScale.Crop,
     placeholderColor: Color? = MaterialTheme.colors.compositedOnSurface(0.2f)
 ) {
-    CoilImage(
-        data = url,
+    val coilPainter = rememberCoilPainter(request = url )
+    Image(
+        painter = coilPainter,
         modifier = modifier,
         contentDescription = contentDescription,
         contentScale = contentScale,
-        fadeIn = true,
-        onRequestCompleted = {
-            when (it) {
-                is ImageLoadState.Success -> Utils.logDebug(
-                    Utils.TAG_NETWORK,
-                    "Image succeed with source:${it.source}"
-                )
-                is ImageLoadState.Error -> Utils.logDebug(
-                    Utils.TAG_NETWORK,
-                    "Image error msg:${it.throwable.message}"/*, it.throwable*/
-                )
-                ImageLoadState.Loading -> Utils.logDebug(Utils.TAG_NETWORK, "Image loading")
-                ImageLoadState.Empty -> Utils.logDebug(Utils.TAG_NETWORK, "Image empty")
-            }
-        },
-//        error = {
-//            Image(painterResource(R.drawable.ic_error), contentDescription = "Error")
-//        },
-        loading = {
-            if (placeholderColor != null) {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(placeholderColor)
-                )
-            }
-        }
+//        fadeIn = true,
     )
+    Crossfade(coilPainter.loadState) { state ->
+        when (state) {
+            is ImageLoadState.Loading -> {
+                Utils.logDebug(Utils.TAG_NETWORK, "Image loading")
+                if (placeholderColor != null) {
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(placeholderColor)
+                    )
+                }
+            }
+            is ImageLoadState.Error -> {
+                Utils.logDebug(
+                    Utils.TAG_NETWORK,
+                    "Image error msg: "/*, it.throwable*/
+                )
+                Image(painterResource(R.drawable.ic_error), contentDescription = "Error")
+            }
+            is ImageLoadState.Success -> {
+                Utils.logDebug(
+                    Utils.TAG_NETWORK,
+                    "Image succeed with source:${coilPainter }"
+                )
+            }
+            ImageLoadState.Empty -> Utils.logDebug(Utils.TAG_NETWORK, "Image empty")
+        }
+    }
 }

@@ -113,7 +113,6 @@ dependencies {
         add("kotlinCompilerPluginClasspath", "androidx.compose.compiler:compiler:$compose_version")
     }
 
-    implementation("io.coil-kt:coil:1.1.1")
     implementation "androidx.appcompat:appcompat:$compose_appcompat_version"
     implementation "androidx.activity:activity-compose:$compose_activity_version"
     implementation "androidx.compose.ui:ui:$compose_version"
@@ -126,5 +125,12 @@ dependencies {
     implementation "androidx.compose.runtime:runtime:$compose_version"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
-    implementation "dev.chrisbanes.accompanist:accompanist-coil:$compose_utils_chrisbanes_coil"
+
+    // google.accompanist replace chrisbanes.accompanist !!!
+//    implementation "dev.chrisbanes.accompanist:accompanist-coil:$compose_utils_chrisbanes_coil"
+
+    implementation "com.google.accompanist:accompanist-coil:$compose_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-insets:$compose_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-insets-ui:$compose_accompanist_version"
+//    implementation "com.google.accompanist:accompanist-pager:$compose_accompanist_version"
 }
